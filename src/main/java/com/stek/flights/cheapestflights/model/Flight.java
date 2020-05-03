@@ -9,13 +9,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "routes")
+@Table(name = "flights")
 @Data
 @NoArgsConstructor
-public class Route {
+@EqualsAndHashCode
+public class Flight {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +29,11 @@ public class Route {
 
 	@ManyToOne
 	@JoinColumn(name = "source_airport_id")
-	private Airport sourceAirport;
+	private Airport from;
 
 	@ManyToOne
 	@JoinColumn(name = "destination_airport_id")
-	private Airport destinationAirport;
+	private Airport to;
 
 	private String codeShare;
 
@@ -41,11 +43,11 @@ public class Route {
 
 	private Double flightCost;
 
-	public Route(String airlineCode, Long airlineId, Airport sourceAirport, Airport destinationAirport, String codeShare, int numOfStops, String equipmentCode, Double flightCost) {
+	public Flight(String airlineCode, Long airlineId, Airport from, Airport to, String codeShare, int numOfStops, String equipmentCode, Double flightCost) {
 		this.airlineCode = airlineCode;
 		this.airlineId = airlineId;
-		this.sourceAirport = sourceAirport;
-		this.destinationAirport = destinationAirport;
+		this.from = from;
+		this.to = to;
 		this.codeShare = codeShare;
 		this.numOfStops = numOfStops;
 		this.equipmentCode = equipmentCode;

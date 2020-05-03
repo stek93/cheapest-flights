@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping(path = "/upload-file")
+@RequestMapping(path = "/files")
 public class FileUploadController {
 
 	private final FileService fileService;
@@ -28,8 +28,10 @@ public class FileUploadController {
 		this.fileService = fileService;
 	}
 
-	@PostMapping
+	@PostMapping(path = "/upload")
 	public ResponseEntity<FileUploadResponse> uploadFile(@RequestParam("file") MultipartFile file) {
+		log.info("POST /files/upload");
+
 		String fileName = fileService.uploadFile(file);
 
 		try {

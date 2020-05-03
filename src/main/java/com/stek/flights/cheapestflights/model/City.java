@@ -12,11 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "cities")
-@Data
+@EqualsAndHashCode
+@Getter
+@Setter
 public class City {
 
 	@Id

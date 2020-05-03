@@ -24,12 +24,12 @@ import com.stek.flights.cheapestflights.model.Airport;
 import com.stek.flights.cheapestflights.model.City;
 import com.stek.flights.cheapestflights.model.Country;
 import com.stek.flights.cheapestflights.model.DST;
-import com.stek.flights.cheapestflights.model.Route;
+import com.stek.flights.cheapestflights.model.Flight;
 import com.stek.flights.cheapestflights.service.exception.FileProcessingException;
 import com.stek.flights.cheapestflights.service.repository.AirportRepository;
 import com.stek.flights.cheapestflights.service.repository.CityRepository;
 import com.stek.flights.cheapestflights.service.repository.CountryRepository;
-import com.stek.flights.cheapestflights.service.repository.RouteRepository;
+import com.stek.flights.cheapestflights.service.repository.FlightRepository;
 import com.stek.flights.cheapestflights.util.FileStorageProperties;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
@@ -45,7 +45,7 @@ public class FileServiceImpl implements FileService {
 
 	private final AirportService airportService;
 
-	private final RouteRepository routeRepository;
+	private final FlightRepository flightRepository;
 
 	private final CityService cityService;
 
@@ -56,12 +56,12 @@ public class FileServiceImpl implements FileService {
 	private final ResourceLoader resourceLoader;
 
 	@Autowired
-	public FileServiceImpl(CountryRepository countryRepository, AirportRepository airportRepository, AirportService airportService, RouteRepository routeRepository, CityService cityService,
+	public FileServiceImpl(CountryRepository countryRepository, AirportRepository airportRepository, AirportService airportService, FlightRepository flightRepository, CityService cityService,
 			CityRepository cityRepository, FileStorageProperties fileStorageProperties, ResourceLoader resourceLoader) {
 		this.countryRepository = countryRepository;
 		this.airportRepository = airportRepository;
 		this.airportService = airportService;
-		this.routeRepository = routeRepository;
+		this.flightRepository = flightRepository;
 		this.cityService = cityService;
 		this.cityRepository = cityRepository;
 		this.fileStorageProperties = fileStorageProperties;
@@ -183,7 +183,7 @@ public class FileServiceImpl implements FileService {
 			Airport destinationAirport = findAirport(destinationAirportId, destinationAirportCode, airportsWithIdLookup, airportsWithCodeLookup);
 
 			if (sourceAirport != null && destinationAirport != null) {
-				routeRepository.save(new Route(airlineCode, airlineId, sourceAirport, destinationAirport, codeShare, numOfStops, equipmentCode, flightCost));
+				flightRepository.save(new Flight(airlineCode, airlineId, sourceAirport, destinationAirport, codeShare, numOfStops, equipmentCode, flightCost));
 			}
 
 		});
