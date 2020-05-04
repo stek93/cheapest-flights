@@ -63,7 +63,11 @@ public class FlightController {
 
 		routeSuggestions.sort(Comparator.comparingDouble(RouteSuggestion::getTotalFlightPrice));
 
-		return showMin ? ResponseEntity.ok(routeSuggestions.get(0)) : ResponseEntity.ok(routeSuggestions);
+		if (showMin && routeSuggestions.size() > 0) {
+			return ResponseEntity.ok(routeSuggestions.get(0));
+		}
+
+		return ResponseEntity.ok(routeSuggestions);
 	}
 
 }
